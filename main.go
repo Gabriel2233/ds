@@ -1,27 +1,41 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/Gabriel2233/ds/array"
-)
+import dl "github.com/Gabriel2233/ds/linkedlist"
 
 func main() {
-	arr := array.New()
+	list := dl.New()
 
-	arr.Add(2)
-	arr.Add(5)
-	arr.Add(10)
-	arr.Add(9)
+	list.AddAtHead(5)
+	list.AddAtHead(6)
+	list.AddAtTail(7)
 
-	arr.Remove(2)
+	list.Print()
 
-	arr.Add(50)
+	list.AddAtHead(4)
+	list.AddAtTail(9)
 
-	fmt.Println(arr.Get(2))
-	fmt.Println(arr.Get(10))
+	list.Print()
 
-	arr.Set(0, 100)
+	list.RemoveAtHead()
 
-	arr.Print()
+	list.Print()
+
+	list.RemoveAtTail()
+
+	list.Print()
+
+	list.AddAt(1, 80)
+	list.AddAt(1, 90)
+
+	list.AddAt(0, 100)
+	list.AddAt(5, 88)
+
+	list.RemoveAt(0)
+	list.RemoveAt(6)
+
+	list.RemoveAt(2)
+
+	list.RemoveAt(1)
+
+	list.Print()
 }
