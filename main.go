@@ -1,41 +1,27 @@
 package main
 
-import dl "github.com/Gabriel2233/ds/linkedlist"
+import (
+	ll "github.com/Gabriel2233/ds/linkedlist/singly"
+)
 
 func main() {
-	list := dl.New()
+	l := ll.New()
 
-	list.AddAtHead(5)
-	list.AddAtHead(6)
-	list.AddAtTail(7)
+	l.AddAtHead(4)
+	l.AddAtHead(5)
+	l.AddAtTail(6)
+	l.AddAtTail(7)
 
-	list.Print()
+	l.AddAtHead(0)
+	l.AddAtTail(99)
+	l.Print()
 
-	list.AddAtHead(4)
-	list.AddAtTail(9)
+	l.RemoveAtTail()
+	l.Print()
 
-	list.Print()
+	l.RemoveAt(2)
+	l.Print()
 
-	list.RemoveAtHead()
-
-	list.Print()
-
-	list.RemoveAtTail()
-
-	list.Print()
-
-	list.AddAt(1, 80)
-	list.AddAt(1, 90)
-
-	list.AddAt(0, 100)
-	list.AddAt(5, 88)
-
-	list.RemoveAt(0)
-	list.RemoveAt(6)
-
-	list.RemoveAt(2)
-
-	list.RemoveAt(1)
-
-	list.Print()
+    l.AddAt(1, 10)
+    l.Print()
 }

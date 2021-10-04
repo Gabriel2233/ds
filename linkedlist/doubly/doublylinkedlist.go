@@ -6,15 +6,19 @@ import (
 
 type DoublyLinkedList struct {
 	size int
-	head *Node
-	tail *Node
+	head *DlNode
+	tail *DlNode
 }
 
-type Node struct {
+type DlNode struct {
 	data int
-	next *Node
-	prev *Node
+	next *DlNode
+	prev *DlNode
 }
+
+func (dn *DlNode) Data() int     { return dn.data }
+func (dn *DlNode) Next() *DlNode { return dn.next }
+func (dn *DlNode) Prev() *DlNode { return dn.prev }
 
 func New() *DoublyLinkedList {
 	return &DoublyLinkedList{
@@ -24,8 +28,20 @@ func New() *DoublyLinkedList {
 	}
 }
 
-func (dl *DoublyLinkedList) AddAtHead(d int) *Node {
-	node := &Node{
+func (dl *DoublyLinkedList) Size() int {
+	return dl.size
+}
+
+func (dl *DoublyLinkedList) PeekHead() *DlNode {
+	if dl.size == 0 {
+		return nil
+	}
+
+	return dl.head
+}
+
+func (dl *DoublyLinkedList) AddAtHead(d int) *DlNode {
+	node := &DlNode{
 		data: d,
 	}
 
@@ -44,8 +60,16 @@ func (dl *DoublyLinkedList) AddAtHead(d int) *Node {
 	return node
 }
 
-func (dl *DoublyLinkedList) AddAtTail(d int) *Node {
-	node := &Node{
+func (dl *DoublyLinkedList) PeekTail() *DlNode {
+	if dl.size == 0 {
+		return nil
+	}
+
+	return dl.tail
+}
+
+func (dl *DoublyLinkedList) AddAtTail(d int) *DlNode {
+	node := &DlNode{
 		data: d,
 	}
 
@@ -63,22 +87,24 @@ func (dl *DoublyLinkedList) AddAtTail(d int) *Node {
 	return node
 }
 
-func (dl *DoublyLinkedList) AddAt(i, d int) *Node {
+func (dl *DoublyLinkedList) AddAt(i, d int) *DlNode {
 	if i < 0 {
 		return nil
 	}
 
 	if i == 0 {
 		node := dl.AddAtHead(d)
+		dl.size++
 		return node
 	}
 
 	if i == dl.size-1 {
 		node := dl.AddAtTail(d)
+		dl.size++
 		return node
 	}
 
-	node := &Node{
+	node := &DlNode{
 		data: d,
 	}
 
@@ -104,10 +130,12 @@ func (dl *DoublyLinkedList) AddAt(i, d int) *Node {
 		idx++
 	}
 
+	dl.size++
+
 	return node
 }
 
-func (dl *DoublyLinkedList) RemoveAtHead() *Node {
+func (dl *DoublyLinkedList) RemoveAtHead() *DlNode {
 	if dl.head == nil {
 		return nil
 	}
@@ -115,11 +143,12 @@ func (dl *DoublyLinkedList) RemoveAtHead() *Node {
 	first := dl.head
 	dl.head = dl.head.next
 	dl.head.prev = nil
+	dl.size--
 
 	return first
 }
 
-func (dl *DoublyLinkedList) RemoveAtTail() *Node {
+func (dl *DoublyLinkedList) RemoveAtTail() *DlNode {
 	if dl.tail == nil {
 		return nil
 	}
@@ -127,39 +156,42 @@ func (dl *DoublyLinkedList) RemoveAtTail() *Node {
 	last := dl.tail
 	dl.tail = dl.tail.prev
 	dl.tail.next = nil
+	dl.size--
 
 	return last
 }
 
-func (dl *DoublyLinkedList) RemoveAt(i int) *Node {
-	if i < 0 {
+func (dl *DoublyLinkedList) RemoveAt(i int) *DlNode {
+	if i < 0 || i >= dl.size {
 		return nil
 	}
 
 	if i == 0 {
-		node := dl.RemoveAtHead()
-		return node
+		dl.size--
+		return dl.RemoveAtHead()
 	}
 
 	if i == dl.size-1 {
-		node := dl.RemoveAtTail()
-		return node
+		dl.size--
+		return dl.RemoveAtTail()
 	}
 
 	cur := dl.head
 	idx := 0
 
-	var node *Node
+	var node *DlNode
 	for cur.next != nil {
 		if idx == i {
 			node = cur
 			cur.prev.next = cur.next
 			cur.next.prev = cur.prev
+			break
 		}
 		idx++
 		cur = cur.next
 	}
 
+	dl.size--
 	return node
 }
 
