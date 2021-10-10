@@ -1,4 +1,4 @@
-package dl
+package dll
 
 import (
 	"fmt"
@@ -80,27 +80,24 @@ func (dl *DoublyLinkedList) AddAtTail(d int) *DlNode {
 		node.next = nil
 		dl.tail.next = node
 		dl.tail = dl.tail.next
+	    dl.size++
 	}
-
-	dl.size++
 
 	return node
 }
 
 func (dl *DoublyLinkedList) AddAt(i, d int) *DlNode {
-	if i < 0 {
+	if i < 0 || i >= dl.size {
 		return nil
 	}
 
 	if i == 0 {
 		node := dl.AddAtHead(d)
-		dl.size++
 		return node
 	}
 
 	if i == dl.size-1 {
 		node := dl.AddAtTail(d)
-		dl.size++
 		return node
 	}
 
@@ -140,6 +137,14 @@ func (dl *DoublyLinkedList) RemoveAtHead() *DlNode {
 		return nil
 	}
 
+    if dl.size == 1 {
+        first := dl.head
+        dl.head = nil
+        dl.tail = nil
+        dl.size--
+        return first
+    }
+
 	first := dl.head
 	dl.head = dl.head.next
 	dl.head.prev = nil
@@ -152,6 +157,10 @@ func (dl *DoublyLinkedList) RemoveAtTail() *DlNode {
 	if dl.tail == nil {
 		return nil
 	}
+
+    if dl.size == 1 {
+        return dl.RemoveAtHead()
+    }
 
 	last := dl.tail
 	dl.tail = dl.tail.prev
@@ -167,12 +176,10 @@ func (dl *DoublyLinkedList) RemoveAt(i int) *DlNode {
 	}
 
 	if i == 0 {
-		dl.size--
 		return dl.RemoveAtHead()
 	}
 
 	if i == dl.size-1 {
-		dl.size--
 		return dl.RemoveAtTail()
 	}
 

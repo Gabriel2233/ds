@@ -1,27 +1,19 @@
 package main
 
 import (
-	ll "github.com/Gabriel2233/ds/linkedlist/singly"
+
+	"github.com/Gabriel2233/ds/queue"
 )
 
 func main() {
-	l := ll.New()
+    q := queue.New()
 
-	l.AddAtHead(4)
-	l.AddAtHead(5)
-	l.AddAtTail(6)
-	l.AddAtTail(7)
-
-	l.AddAtHead(0)
-	l.AddAtTail(99)
-	l.Print()
-
-	l.RemoveAtTail()
-	l.Print()
-
-	l.RemoveAt(2)
-	l.Print()
-
-    l.AddAt(1, 10)
-    l.Print()
+    q.Enqueue(2)
+    println("queue has only 2, head is: ", q.Peek(), " size is: ", q.Size())
+    q.Enqueue(3)
+    println("enqueued 3, head is still: ", q.Peek(), " size is: ", q.Size())
+    q.Dequeue()
+    println("removed 2, head is: ", q.Peek(), " size is: ", q.Size())
+    q.Dequeue()
+    println("removed 3, head is: ", q.Peek(), " size is: ", q.Size())
 }

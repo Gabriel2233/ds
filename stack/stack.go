@@ -1,14 +1,16 @@
 package stack
 
-import dl "github.com/Gabriel2233/ds/linkedlist/doubly"
+import (
+	dll "github.com/Gabriel2233/ds/linkedlist/doubly"
+)
 
 type Stack struct {
-	list *dl.DoublyLinkedList
+	list *dll.DoublyLinkedList
 }
 
 func New() *Stack {
 	return &Stack{
-		list: dl.New(),
+		list: dll.New(),
 	}
 }
 
@@ -16,17 +18,22 @@ func (s *Stack) IsEmpty() bool {
 	return s.list.Size() == 0
 }
 
-func (s *Stack) Push(d int) {
-	s.list.AddAtHead(d)
+func (s *Stack) Push(d int) int {
+	return s.list.AddAtHead(d).Data()
 }
 
-func (s *Stack) Pop() {
-	s.list.RemoveAtHead()
+func (s *Stack) Pop() int {
+    if s.list.Size() == 0 {
+        return -1
+    }
+	return s.list.RemoveAtHead().Data()
 }
 
 func (s *Stack) Peek() int {
-	node := s.list.PeekHead()
-	return node.Data()
+    if s.list.Size() == 0 {
+        return - 1
+    }
+	return s.list.PeekHead().Data()
 }
 
 func (s *Stack) Print() {

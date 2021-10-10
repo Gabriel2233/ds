@@ -1,4 +1,4 @@
-package ll
+package sll
 
 import "fmt"
 
@@ -25,8 +25,12 @@ func New() *SinglyLinkedList {
 }
 
 func (sl *SinglyLinkedList) AddAt(i, d int) *Node {
-    if(sl.size == 0) {
+    if sl.size == 0 || i == 0 {
         return sl.AddAtHead(d);
+    }
+
+    if i == sl.size - 1 {
+        return sl.AddAtTail(d)
     }
 
     // 1 -> 4 -> 6 -> 0
@@ -48,6 +52,8 @@ func (sl *SinglyLinkedList) AddAt(i, d int) *Node {
 
         idx++
 	}
+
+    sl.size++
 
     return node
 }
@@ -150,32 +156,31 @@ func (sl *SinglyLinkedList) RemoveAt(i int) *Node {
 	}
 
 	if i == 0 {
-		sl.size--
 		return sl.RemoveAtHead()
 	}
 
 	if i == sl.size-1 {
-		sl.size--
 		return sl.RemoveAtTail()
 	}
 
-	idx := 0
-	cur := sl.head
-	target := cur.next
+    var node *Node
 
-	var node *Node
-	for target.next != nil {
-		if idx == i-1 {
-			node = target
-			cur.next = target.next
-			target = nil
-			break
-		}
+    idx := 0
+    cur := sl.head
+    target := cur.next
 
-		target = target.next
-		cur = cur.next
-		idx++
-	}
+    for target.next != nil {
+        if idx == i - 1 {
+            node = target
+            cur.next = target.next
+            target = nil
+            break
+        }
+
+        idx++
+        target = target.next
+        cur = cur.next
+    }
 
 	sl.size--
 
