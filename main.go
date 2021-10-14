@@ -1,19 +1,31 @@
 package main
 
 import (
+	"fmt"
 
-	"github.com/Gabriel2233/ds/queue"
+	"github.com/Gabriel2233/ds/priorityqueue"
 )
 
 func main() {
-    q := queue.New()
+    pq := pq.New(true)
+    
+    pq.Add(-1)
+    pq.Add(3)
+    pq.Add(2)
+    pq.Add(1)
+    pq.Add(0)
+    pq.Add(5)
+    pq.Add(10)
 
-    q.Enqueue(2)
-    println("queue has only 2, head is: ", q.Peek(), " size is: ", q.Size())
-    q.Enqueue(3)
-    println("enqueued 3, head is still: ", q.Peek(), " size is: ", q.Size())
-    q.Dequeue()
-    println("removed 2, head is: ", q.Peek(), " size is: ", q.Size())
-    q.Dequeue()
-    println("removed 3, head is: ", q.Peek(), " size is: ", q.Size())
+    pq.Print()
+
+    pq.Pool()
+
+    pq.Print()
+
+    pq.RemoveAt(2)
+
+    pq.Print()
+
+    fmt.Println(pq.IsMinHeap(0))
 }
