@@ -1,6 +1,8 @@
 package sll
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type SinglyLinkedList struct {
 	size int

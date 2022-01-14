@@ -1,31 +1,26 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/Gabriel2233/ds/priorityqueue"
+	bst "github.com/Gabriel2233/ds/binarytree/binarysearchtree"
 )
 
 func main() {
-    pq := pq.New(true)
-    
-    pq.Add(-1)
-    pq.Add(3)
-    pq.Add(2)
-    pq.Add(1)
-    pq.Add(0)
-    pq.Add(5)
-    pq.Add(10)
+    tree := bst.NewBst(5)
 
-    pq.Print()
+    tree.Add(1)
+    tree.Add(8)
+    tree.Add(6)
+    tree.Add(3)
+    tree.Add(0)
+    tree.Add(10)
+    tree.Print()
 
-    pq.Pool()
+    tree.Remove(10)
+    tree.Print()
 
-    pq.Print()
+    tree.Remove(99)
+    tree.Print()
 
-    pq.RemoveAt(2)
-
-    pq.Print()
-
-    fmt.Println(pq.IsMinHeap(0))
+    tree.Remove(5)
+    tree.Print()
 }
